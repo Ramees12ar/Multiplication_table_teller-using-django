@@ -1,0 +1,86 @@
+{% load static %}
+{% static "" as img %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multiplication table speaker</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            .list{
+                text-align: center;
+            }
+            ul{
+                width:350px;
+                height:380px;
+                background-color: white;
+                margin: auto;
+                border-radius: 10px;
+            }
+            li{
+                display: inline-block; 
+                text-align: center;
+                margin-top: 2px;
+                font-size: 22px;
+                font-weight: bold;
+            }
+            .jumbotron{
+                background-color: thistle;
+                padding-top: 10px;
+            }
+            button{
+                width:70px;
+                height: 40px;
+                outline: none;
+                margin-top: -10px;
+            }
+            img{
+                width:40px;
+                height: 20px;
+            }
+            input{
+                width:70px;
+                height: 50px;
+                background-color: white;
+                border: 5px solid;
+                cursor: pointer;
+		        outline: none;
+                font-weight: bold;
+                font-size: 25px;
+                text-align: center;
+            }
+            form{
+                margin: auto;
+            }
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="jumbotron">
+            <h1 style="text-align: center;">Multiplication Table Speaker</h1><br>
+            <form method="post" action="{% url 'multiplier' %}">{% csrf_token %}
+                <label style="margin-left: 35%;font-size: 20px;">Enter the digit to get multiplication Table</label><br>
+                <input style="margin-left:45%;border-radius: 15px;margin-right: 10px;" type="number" min="1" max="100" autocomplete="off" name="num" maxlength="3">
+                <button class="btn btn-primary">Submit</button>
+            </form><br>
+            <form method="POST" action="{% url 'audio' %}">{% csrf_token %}
+                <button style="margin-left:48%;" class="btn btn-primary"><img src="{% static 'speaker.png' %}"></button>
+            </form><br>
+            <div class="list">
+                <ul>
+                {% for i in data %}
+                    <li style="align-items: center;">{{i.count}}</li><br>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

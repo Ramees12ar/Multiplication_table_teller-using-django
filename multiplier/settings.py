@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import django_heroku
 import os
 from pathlib import Path
 
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ["type your secret key"]
+SECRET_KEY = '&l$2wr98+0c7h48l35^sauv@eupfhcjo6l9a()w7te**t$3h%2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -106,6 +107,9 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'app/static')
     ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 MEDIA_ROOT=os.path.join(BASE_DIR,"songdir")
 MEDIA_URL='/media/'
 
@@ -128,3 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+

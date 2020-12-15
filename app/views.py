@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from app.models import *
 from django.http import HttpResponse,JsonResponse
+from num2words import num2words
+from gtts import gTTS
+from playsound import playsound
 
 # Create your views here.
 
@@ -18,8 +21,6 @@ def multiplier(request):
         num=request.POST.get("num")
         if(num==""):
             return HttpResponse("<script>alert('Enter a number');window.location.href='/redirect/';</script>")
-        from num2words import num2words
-        from gtts import gTTS
         txt=""
         text=""
         for i in range(1,11):
@@ -38,7 +39,6 @@ def multiplier(request):
         ab=mult.objects.all()
         return render(request,"index.html",{"data":ab})
 def audio(request):
-    from playsound import playsound
     ab=speaker.objects.get(lid=1)
     if(ab.num==0):
         return HttpResponse("<script>alert('Please enter a number and submit it');window.location.href='/redirect/';</script>")
